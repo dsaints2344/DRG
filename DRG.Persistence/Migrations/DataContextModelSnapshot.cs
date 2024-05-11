@@ -24,8 +24,15 @@ namespace DRG.Persistence.Migrations
 
             modelBuilder.Entity("DRG.Domain.APRDRGV36", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("APRDRG")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CombinedSOI")
                         .IsRequired()
@@ -37,9 +44,6 @@ namespace DRG.Persistence.Migrations
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
 
                     b.Property<double?>("MLOS")
                         .HasColumnType("float");
@@ -50,15 +54,22 @@ namespace DRG.Persistence.Migrations
                     b.Property<decimal?>("V36RelativeWeight")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("APRDRG");
+                    b.HasKey("Id");
 
                     b.ToTable("APRDRGV36s");
                 });
 
             modelBuilder.Entity("DRG.Domain.APRDRGV38", b =>
                 {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
                     b.Property<string>("APRDRG")
-                        .HasColumnType("nvarchar(450)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CombinedSOI")
                         .IsRequired()
@@ -71,9 +82,6 @@ namespace DRG.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<double?>("MLOS")
                         .HasColumnType("float");
 
@@ -83,7 +91,7 @@ namespace DRG.Persistence.Migrations
                     b.Property<decimal?>("V38RelativeWeight")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("APRDRG");
+                    b.HasKey("Id");
 
                     b.ToTable("APRDRGV38s");
                 });

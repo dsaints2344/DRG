@@ -19,6 +19,12 @@ namespace DRG.Persistence
             optionsBuilder.UseSqlServer(connectionString);
         }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+           
+        }
+
         public DbSet<Hospital> Hospitals { get; set; }
         public DbSet<CHIRPHospital> CHIRPHospitals { get; set;}
         public DbSet<HospitalRate> HospitalRates { get; set;}
