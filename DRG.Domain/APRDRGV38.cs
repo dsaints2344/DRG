@@ -5,8 +5,6 @@ namespace DRG.Domain
     public class APRDRGV38
     {
         public int Id { get; set; }
-
-        [Key]
         public required string APRDRG { get; set; }  // APR DRG code
         public int SOIScore { get; set; } // Severity of illness score
         public required string CombinedSOI { get; set; }  // APR DRG-SOI
