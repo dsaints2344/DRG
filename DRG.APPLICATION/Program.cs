@@ -1,59 +1,13 @@
-﻿using AutoMapper;
-using DRG.Application.Core;
-using DRG.Application.DTOs;
-using DRG.Domain;
-using DRG.Persistence;
-using Microsoft.EntityFrameworkCore;
-using NPOI.SS.Formula.Functions;
-using NPOI.SS.UserModel;
-using NPOI.XSSF.UserModel;
-using System;
-using System.Collections.Generic;
+﻿
+using DRG.Application.APRDRG;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
         var pricingWorkbookPath = @"C:\Repos\DRG\DCM Dev Test Project\Price Sheet Calculation.xlsx";
-        var mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfiles>()).CreateMapper();
-        XSSFWorkbook workbook;
-        List<APRDRGV36DTO> v36PricingList = new List<APRDRGV36DTO>();
-        IQueryable<APRDRGV36DTO> pricingEnumerable = v36PricingList.AsQueryable();
-
-        using (FileStream file = new FileStream(pricingWorkbookPath, FileMode.Open, FileAccess.Read))
-        {
-            workbook = new XSSFWorkbook(file);
-        }
-
-        ISheet v36PricingSheet = workbook.GetSheetAt(3);
-        
-        for (int row = 4; row <= v36PricingSheet.LastRowNum; row++)
-        {
-            if (v36PricingSheet.GetRow(row) != null)
-            {
-                APRDRGV36DTO aprV36Dto = new APRDRGV36DTO()
-                {
-                    APRDRG = v36PricingSheet.GetRow(row).GetCell(0).StringCellValue,
-                    SOIScore = int.Parse(v36PricingSheet.GetRow(row).GetCell(1).StringCellValue),
-                    CombinedSOI = v36PricingSheet.GetRow(row).GetCell(2).StringCellValue,
-                    Description = v36PricingSheet.GetRow(row).GetCell(3).StringCellValue,
-                    V36RelativeWeight = v36PricingSheet.GetRow(row).GetCell(4).CellType == CellType.Numeric ? (decimal?)v36PricingSheet.GetRow(row).GetCell(4).NumericCellValue : 0,
-                    MLOS = v36PricingSheet.GetRow(row).GetCell(5).CellType == CellType.Numeric ? (double?)v36PricingSheet.GetRow(row).GetCell(5).NumericCellValue : 0,
-                    DayOutlierThreshold = (v36PricingSheet.GetRow(row).GetCell(6).CellType == CellType.Numeric ? (int?)v36PricingSheet.GetRow(row).GetCell(6).NumericCellValue : 0)
-                };
-                v36PricingList.Add(aprV36Dto);
-            }
-        }
-
-        using (var context = new DataContext())
-        {
-            var mappedRatings = mapper.ProjectTo<APRDRGV36>(pricingEnumerable).ToList();
-            context.APRDRGV36s.AddRange(mappedRatings);
-            context.SaveChanges();
-
-
-
-        }
+        APRDRG aprdrgPricing = new APRDRG(pricingWorkbookPath, "38");
+        aprdrgPricing.ProcessFile("38");
 
     }
 }
