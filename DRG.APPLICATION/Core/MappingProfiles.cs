@@ -13,6 +13,7 @@ namespace DRG.Application.Core
     {
         public MappingProfiles() {
             CreateMap<APRDRGV36DTO, APRDRGV36>();
+            CreateMap<APRDRGV38DTO, APRDRGV38>();
         }
     }
 }
