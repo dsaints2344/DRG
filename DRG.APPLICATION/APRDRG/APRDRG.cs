@@ -12,7 +12,7 @@ namespace DRG.Application.APRDRG
     {
         private string _filePath {  get; set; }
 
-        public APRDRG(string filePath, string version)
+        public APRDRG(string filePath)
         {
             _filePath = filePath;
         }
@@ -66,10 +66,19 @@ namespace DRG.Application.APRDRG
                     using (var context = new DataContext())
                     {
                         var mappedRatings = mapper.ProjectTo<APRDRGV36>(pricingEnumerable).ToList();
-                        context.APRDRGV36s.AddRange(mappedRatings);
-                        context.SaveChanges();
 
-                        Console.WriteLine($"Save changes for DRG Weigths V{version}");
+                        var existingEntries = context.APRDRGV38s.Any();
+                        if (existingEntries)
+                        {
+                            Console.WriteLine($"DRG Weigths V{version} already exists");
+                        }
+
+                        else
+                        {
+                            context.APRDRGV36s.AddRange(mappedRatings);
+                            context.SaveChanges();
+                            Console.WriteLine($"Save changes for DRG Weigths V{version}");
+                        }
 
                     }
 
@@ -102,7 +111,6 @@ namespace DRG.Application.APRDRG
                     {
                         if (pricingSheet.GetRow(row) != null)
                         {
-                            Console.WriteLine(pricingSheet.GetRow(row).GetCell(4).CellType);
                             APRDRGV38DTO aprV38Dto = new APRDRGV38DTO()
                             {
                                 APRDRG = pricingSheet.GetRow(row).GetCell(0).CellType == CellType.String ? pricingSheet.GetRow(row).GetCell(0).StringCellValue : pricingSheet.GetRow(row).GetCell(0).NumericCellValue < 100 ? pricingSheet.GetRow(row).GetCell(0).NumericCellValue.ToString().PadLeft(3, '0') : pricingSheet.GetRow(row).GetCell(0).NumericCellValue.ToString(),
@@ -120,10 +128,20 @@ namespace DRG.Application.APRDRG
                     using (var context = new DataContext())
                     {
                         var mappedRatings = mapper.ProjectTo<APRDRGV38>(pricingEnumerable).ToList();
-                        context.APRDRGV38s.AddRange(mappedRatings);
-                        context.SaveChanges();
 
-                        Console.WriteLine($"Save changes for DRG Weigths V{version}");
+                        var existingEntries = context.APRDRGV38s.Any();
+                        if (existingEntries)
+                        {
+                            Console.WriteLine($"DRG Weigths V{version} already exists");
+                        }
+                        
+                        else
+                        {
+                            context.APRDRGV38s.AddRange(mappedRatings);
+                            context.SaveChanges();
+
+                            Console.WriteLine($"Save changes for DRG Weigths V{version}");
+                        }
 
                     }
                 }
