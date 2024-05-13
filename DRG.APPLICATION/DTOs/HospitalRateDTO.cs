@@ -2,6 +2,7 @@
 {
     public class HospitalRateDTO
     {
+        public int Id { get; set; }
         
         public required string NPI { get; set; }
         public required int Month { get; set; }

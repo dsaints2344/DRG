@@ -1,18 +1,18 @@
 ﻿using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 
-namespace DRG.Application.HospitalRates
+namespace DRG.Application.Hospital
 {
-    public class HospitalRates
+    public class HospitalRate
     {
         private string _filePath { get; set; }
 
-        public HospitalRates(string filePath) 
+        public HospitalRate(string filePath)
         {
             _filePath = filePath;
         }
 
-        public void ProcessFile() 
+        public void ProcessFile()
         {
             XSSFWorkbook workbook = new XSSFWorkbook();
             ISheet ratesSheet;
@@ -29,7 +29,7 @@ namespace DRG.Application.HospitalRates
                 }
             }
 
-            if (workbook != null) 
+            if (workbook != null)
             {
                 ratesSheet = workbook.GetSheetAt(4);
             }

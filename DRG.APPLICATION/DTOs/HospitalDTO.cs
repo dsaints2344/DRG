@@ -4,6 +4,7 @@ namespace DRG.Application.DTOs
 {
     public class HospitalDTO
     {
+        public int Id { get; set; }
 
         public required string HospitalNPI { get; set; }
 

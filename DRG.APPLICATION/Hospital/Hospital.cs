@@ -1,4 +1,9 @@
-﻿using NPOI.SS.UserModel;
+﻿using AutoMapper;
+using DRG.Application.Core;
+using DRG.Application.DTOs;
+using DRG.Domain;
+using DRG.Persistence;
+using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
 using System.Collections.Generic;
@@ -22,7 +27,11 @@ namespace DRG.Application.Hospital
         public void ProcessFile()
         {
             XSSFWorkbook workbook = new XSSFWorkbook();
-            ISheet ratesSheet;
+            ISheet hospitalAndRatesSheet;
+            List<HospitalDTO> hospitalDTOs = new List<HospitalDTO>();
+            IQueryable<HospitalDTO> hospitalDTOsEnumerables = hospitalDTOs.AsQueryable();
+
+            var mapper = new MapperConfiguration(cfg => cfg.AddProfile<MappingProfiles>()).CreateMapper();
 
             using (FileStream file = new FileStream(_filePath, FileMode.Open, FileAccess.Read))
             {
@@ -38,7 +47,47 @@ namespace DRG.Application.Hospital
 
             if (workbook != null)
             {
-                ratesSheet = workbook.GetSheetAt(4);
+                hospitalAndRatesSheet = workbook.GetSheetAt(5);
+
+                for (int row = 1; row <= hospitalAndRatesSheet.LastRowNum; row++)
+                {
+                    if (hospitalAndRatesSheet.GetRow(row) != null)
+                    {
+                        var hospitalDTO = new HospitalDTO()
+                        {
+                            HospitalNPI = hospitalAndRatesSheet.GetRow(row).GetCell(0).NumericCellValue.ToString(),
+                            HospitalName = hospitalAndRatesSheet.GetRow(row).GetCell(4).StringCellValue,
+                            HospitalPhysicalCity = hospitalAndRatesSheet.GetRow(row).GetCell(5).StringCellValue,
+                            HospitalPhysicalStreetAddress = hospitalAndRatesSheet.GetRow(row).GetCell(6).StringCellValue,
+                            HospitalClass = hospitalAndRatesSheet.GetRow(row).GetCell(7).StringCellValue.ToUpper(),
+                        };
+
+                        if (hospitalDTOs.Where(h => h.HospitalNPI == hospitalDTO.HospitalNPI).Count() == 0)
+                        {
+                            hospitalDTOs.Add(hospitalDTO);
+                        }
+                    }
+                    
+                }
+
+                using (var context = new DataContext())
+                {
+                    var mappedHospitals = mapper.ProjectTo<Domain.Hospital>(hospitalDTOsEnumerables).ToList();
+
+                    var existingEntries = context.Hospitals.Any();
+                    if (existingEntries)
+                    {
+                        Console.WriteLine("Hospital entries already exist");
+                    }
+
+                    else
+                    {
+                        context.Hospitals.AddRange(mappedHospitals);
+                        context.SaveChanges();
+                        Console.WriteLine($"Saved changes Hospital entries");
+                    }
+
+                }
             }
         }
     }
