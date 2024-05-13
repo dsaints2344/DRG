@@ -1,15 +1,10 @@
 ﻿using AutoMapper;
 using DRG.Application.Core;
 using DRG.Application.DTOs;
-using DRG.Domain;
 using DRG.Persistence;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DRG.Application.Hospital
 {

@@ -15,7 +15,7 @@ namespace DRG.Application.Hospital
         public void ProcessFile()
         {
             XSSFWorkbook workbook = new XSSFWorkbook();
-            ISheet ratesSheet;
+            ISheet hospitalAndRatesSheet;
 
             using (FileStream file = new FileStream(_filePath, FileMode.Open, FileAccess.Read))
             {
@@ -28,11 +28,17 @@ namespace DRG.Application.Hospital
                     Console.WriteLine("File not found in path provided!");
                 }
             }
+            
+            hospitalAndRatesSheet = workbook.GetSheetAt(5);
 
-            if (workbook != null)
+            for (int row = 1; row <= hospitalAndRatesSheet.LastRowNum; row++)
             {
-                ratesSheet = workbook.GetSheetAt(4);
+                if (hospitalAndRatesSheet.GetRow(row) != null)
+                {
+                    // TODO: Add logic for handling related Rates and hospitals
+                }
             }
+
         }
     }
 }
