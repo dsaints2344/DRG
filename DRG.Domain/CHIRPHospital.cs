@@ -10,6 +10,7 @@ namespace DRG.Domain
 {
     public class CHIRPHospital
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Key]

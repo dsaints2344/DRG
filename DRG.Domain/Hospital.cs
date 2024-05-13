@@ -10,6 +10,7 @@ namespace DRG.Domain
 {
     public class Hospital
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Key]
