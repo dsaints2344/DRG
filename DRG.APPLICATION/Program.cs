@@ -1,17 +1,22 @@
-﻿using DRG.Persistence;
-using Microsoft.EntityFrameworkCore;
+﻿
+using DRG.Application.APRDRG;
+using DRG.Application.Hospital;
+using System.Globalization;
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        //var optionsBuilder = new DbContextOptionsBuilder<DataContext>();
-        //optionsBuilder.UseSqlServer("Server=127.0.0.1,1433;Database=DRG;User Id=SA;;Password=yourStrong(!)Password;TrustServerCertificate=True");
+        var pricingWorkbookPath = @"C:\Repos\DRG\DCM Dev Test Project\Price Sheet Calculation.xlsx";
+        //APRDRG aprdrgPricing = new APRDRG(pricingWorkbookPath);
+        //aprdrgPricing.ProcessFile("36");
+        //aprdrgPricing.ProcessFile("38");
 
-        //using (var context = new DataContext(optionsBuilder.Options))
-        //{
-        //    context.Database.EnsureCreated();
-        //    context.Database.Migrate();
-        //}
+        //Hospital hospitals = new Hospital(pricingWorkbookPath);
+        //hospitals.ProcessFile();
+        //HospitalRate hospitalRates = new HospitalRate(pricingWorkbookPath);
+        //hospitalRates.ProcessFile();
+        CHIRPHospital CHIRPHospital = new CHIRPHospital(pricingWorkbookPath);
+        CHIRPHospital.ProcessFile();
     }
 }

@@ -4,6 +4,7 @@ using DRG.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRG.Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240514061351_Removing properties")]
+    partial class Removingproperties
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,7 +101,7 @@ namespace DRG.Persistence.Migrations
 
             modelBuilder.Entity("DRG.Domain.CHIRPHospital", b =>
                 {
-                    b.Property<string>("CHIRPNPI")
+                    b.Property<string>("TIN")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("ACIAIP")
@@ -133,10 +136,6 @@ namespace DRG.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TIN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<decimal>("TotalCHIRIP")
                         .HasColumnType("decimal(18,2)");
 
@@ -149,7 +148,7 @@ namespace DRG.Persistence.Migrations
                     b.Property<decimal>("UHRIPOP")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("CHIRPNPI");
+                    b.HasKey("TIN");
 
                     b.HasIndex("NPI");
 

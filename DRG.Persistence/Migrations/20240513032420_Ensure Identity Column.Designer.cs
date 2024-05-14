@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRG.Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20240510114237_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240513032420_Ensure Identity Column")]
+    partial class EnsureIdentityColumn
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,80 @@ namespace DRG.Persistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("DRG.Domain.APRDRGV36", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("APRDRG")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CombinedSOI")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DayOutlierThreshold")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("MLOS")
+                        .HasColumnType("float");
+
+                    b.Property<int>("SOIScore")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("V36RelativeWeight")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("APRDRGV36s");
+                });
+
+            modelBuilder.Entity("DRG.Domain.APRDRGV38", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("APRDRG")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CombinedSOI")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DayOutlierThreshold")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double?>("MLOS")
+                        .HasColumnType("float");
+
+                    b.Property<int>("SOIScore")
+                        .HasColumnType("int");
+
+                    b.Property<decimal?>("V38RelativeWeight")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("APRDRGV38s");
+                });
 
             modelBuilder.Entity("DRG.Domain.CHIRPHospital", b =>
                 {
@@ -36,9 +110,6 @@ namespace DRG.Persistence.Migrations
 
                     b.Property<decimal>("IP")
                         .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
 
                     b.Property<string>("NPI")
                         .HasColumnType("nvarchar(450)");
@@ -81,9 +152,6 @@ namespace DRG.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<string>("TIN")
                         .HasColumnType("nvarchar(450)");
 
@@ -122,9 +190,6 @@ namespace DRG.Persistence.Migrations
                     b.Property<decimal>("IPRate")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<int>("Month")
                         .HasColumnType("int");
 
@@ -155,42 +220,6 @@ namespace DRG.Persistence.Migrations
                     b.HasIndex("HospitalNPI");
 
                     b.ToTable("HospitalRates");
-                });
-
-            modelBuilder.Entity("DRG.Domain.Weight", b =>
-                {
-                    b.Property<string>("APRDRG")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("CombinedSOI")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("DayOutlierThreshold")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
-                    b.Property<double?>("MLOS")
-                        .HasColumnType("float");
-
-                    b.Property<int>("SOIScore")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("V36RelativeWeight")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal?>("V38RelativeWeight")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("APRDRG");
-
-                    b.ToTable("Weights");
                 });
 
             modelBuilder.Entity("DRG.Domain.CHIRPHospital", b =>

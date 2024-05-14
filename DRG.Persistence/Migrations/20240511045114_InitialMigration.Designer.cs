@@ -4,6 +4,7 @@ using DRG.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRG.Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240511045114_InitialMigration")]
+    partial class InitialMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,58 +101,33 @@ namespace DRG.Persistence.Migrations
 
             modelBuilder.Entity("DRG.Domain.CHIRPHospital", b =>
                 {
-                    b.Property<string>("CHIRPNPI")
+                    b.Property<string>("TIN")
                         .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("ACIAIP")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("ACIAOP")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("CHIRPCLASS")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("DHPContractRateIP")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("DHPContractRateIPBH")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("DHPContractRateOP")
+                    b.Property<decimal>("IP")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("NPI")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal>("OP")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("SDA")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TIN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TotalCHIRIP")
+                    b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("TotalCHIRPOP")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("UHRIPIP")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("UHRIPOP")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("CHIRPNPI");
+                    b.HasKey("TIN");
 
                     b.HasIndex("NPI");
 
@@ -178,10 +156,7 @@ namespace DRG.Persistence.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("TIN")
                         .HasColumnType("nvarchar(450)");
@@ -195,11 +170,8 @@ namespace DRG.Persistence.Migrations
 
             modelBuilder.Entity("DRG.Domain.HospitalRate", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    b.Property<string>("NPI")
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("CHIRP")
                         .HasColumnType("bit");
@@ -224,12 +196,11 @@ namespace DRG.Persistence.Migrations
                     b.Property<decimal>("IPRate")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<int>("Month")
+                    b.Property<int>("Id")
                         .HasColumnType("int");
 
-                    b.Property<string>("NPI")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Month")
+                        .HasColumnType("int");
 
                     b.Property<string>("NPIMonthYear")
                         .IsRequired()
@@ -253,7 +224,7 @@ namespace DRG.Persistence.Migrations
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("NPI");
 
                     b.HasIndex("HospitalNPI");
 

@@ -12,22 +12,41 @@ namespace DRG.Persistence.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Weights",
+                name: "APRDRGV36s",
                 columns: table => new
                 {
-                    APRDRG = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    APRDRG = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SOIScore = table.Column<int>(type: "int", nullable: false),
                     CombinedSOI = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     V36RelativeWeight = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    MLOS = table.Column<double>(type: "float", nullable: true),
+                    DayOutlierThreshold = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_APRDRGV36s", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "APRDRGV38s",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    APRDRG = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SOIScore = table.Column<int>(type: "int", nullable: false),
+                    CombinedSOI = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     V38RelativeWeight = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     MLOS = table.Column<double>(type: "float", nullable: true),
                     DayOutlierThreshold = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Weights", x => x.APRDRG);
+                    table.PrimaryKey("PK_APRDRGV38s", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -132,10 +151,13 @@ namespace DRG.Persistence.Migrations
                 table: "CHIRPHospitals");
 
             migrationBuilder.DropTable(
-                name: "HospitalRates");
+                name: "APRDRGV36s");
 
             migrationBuilder.DropTable(
-                name: "Weights");
+                name: "APRDRGV38s");
+
+            migrationBuilder.DropTable(
+                name: "HospitalRates");
 
             migrationBuilder.DropTable(
                 name: "Hospitals");

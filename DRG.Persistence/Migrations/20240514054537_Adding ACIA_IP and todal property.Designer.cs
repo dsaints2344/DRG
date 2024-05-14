@@ -4,6 +4,7 @@ using DRG.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DRG.Persistence.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20240514054537_Adding ACIA_IP and todal property")]
+    partial class AddingACIA_IPandtodalproperty
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -98,7 +101,7 @@ namespace DRG.Persistence.Migrations
 
             modelBuilder.Entity("DRG.Domain.CHIRPHospital", b =>
                 {
-                    b.Property<string>("CHIRPNPI")
+                    b.Property<string>("TIN")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("ACIAIP")
@@ -111,13 +114,7 @@ namespace DRG.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("DHPContractRateIP")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("DHPContractRateIPBH")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("DHPContractRateOP")
+                    b.Property<decimal>("IP")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Id")
@@ -129,27 +126,20 @@ namespace DRG.Persistence.Migrations
                     b.Property<string>("NPI")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<decimal>("OP")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("SDA")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TIN")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal>("TotalCHIRIP")
+                    b.Property<decimal>("Total")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("TotalCHIRPOP")
+                    b.Property<decimal>("TotalACIA")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<decimal>("UHRIPIP")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<decimal>("UHRIPOP")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("CHIRPNPI");
+                    b.HasKey("TIN");
 
                     b.HasIndex("NPI");
 
