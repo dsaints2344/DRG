@@ -23,12 +23,11 @@ namespace DRG.Domain
         public required decimal DHPContractRateOP { get; set; }
         public required decimal UHRIPIP { get; set; }
         public required decimal UHRIPOP { get; set; }
-        public required decimal ACIAOP { get; set; }
         public required decimal ACIAIP { get; set; }
+        public required decimal ACIAOP { get; set; }
         public required decimal TotalCHIRIP { get; set; }
         public required decimal TotalCHIRPOP { get; set; }
-        public required decimal Total { get; set; }
-
+        
        [ForeignKey("Hospital")]
        public string? NPI { get; set; }
        public Hospital? Hospital { get; set; } 

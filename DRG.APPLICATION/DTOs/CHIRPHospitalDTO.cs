@@ -14,10 +14,8 @@
         public required decimal UHRIPOP { get; set; }
         public required decimal ACIAOP { get; set; }
         public required decimal ACIAIP { get; set; }
-        public required decimal TotalACIA { get; set; }
-        public required decimal IP { get; set; }
-        public required decimal OP { get; set; }
-        public required decimal Total { get; set; }
+        public required decimal TotalCHIRIP { get; set; }
+        public required decimal TotalCHIRPOP { get; set; }
 
         public string? NPI { get; set; }
         public HospitalDTO? Hospital { get; set; }
