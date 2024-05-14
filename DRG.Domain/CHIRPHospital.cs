@@ -15,6 +15,7 @@ namespace DRG.Domain
         public int Id { get; set; }
 
         [Key]
+        public required string CHIRPNPI { get; set; }
         public required string TIN { get; set; }
         public required string SDA { get; set; }
         public required string CHIRPCLASS { get; set; }
