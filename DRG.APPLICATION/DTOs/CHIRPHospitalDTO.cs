@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
 
+        public required string CHIRPNPI { get; set; }
         public required string TIN { get; set; }
         public required string SDA { get; set; }
         public required string CHIRPCLASS { get; set; }
