@@ -1,6 +1,7 @@
 ﻿
 using DRG.Application.APRDRG;
 using DRG.Application.Hospital;
+using System.Globalization;
 
 internal class Program
 {
@@ -11,7 +12,11 @@ internal class Program
         //aprdrgPricing.ProcessFile("36");
         //aprdrgPricing.ProcessFile("38");
 
-        Hospital hospitals = new Hospital(pricingWorkbookPath);
-        hospitals.ProcessFile();
+        //Hospital hospitals = new Hospital(pricingWorkbookPath);
+        //hospitals.ProcessFile();
+        //HospitalRate hospitalRates = new HospitalRate(pricingWorkbookPath);
+        //hospitalRates.ProcessFile();
+        CHIRPHospital CHIRPHospital = new CHIRPHospital(pricingWorkbookPath);
+        CHIRPHospital.ProcessFile();
     }
 }
