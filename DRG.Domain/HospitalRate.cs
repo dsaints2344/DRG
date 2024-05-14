@@ -7,10 +7,10 @@ namespace DRG.Domain
 {
     public class HospitalRate
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Key]
         public required string NPI { get; set; }
         public required int Month { get; set; }
         public required int Year { get; set; }
