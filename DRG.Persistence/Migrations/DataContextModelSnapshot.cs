@@ -98,7 +98,7 @@ namespace DRG.Persistence.Migrations
 
             modelBuilder.Entity("DRG.Domain.CHIRPHospital", b =>
                 {
-                    b.Property<string>("TIN")
+                    b.Property<string>("CHIRPNPI")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("ACIAIP")
@@ -133,6 +133,10 @@ namespace DRG.Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("TIN")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<decimal>("TotalCHIRIP")
                         .HasColumnType("decimal(18,2)");
 
@@ -145,7 +149,7 @@ namespace DRG.Persistence.Migrations
                     b.Property<decimal>("UHRIPOP")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("TIN");
+                    b.HasKey("CHIRPNPI");
 
                     b.HasIndex("NPI");
 
